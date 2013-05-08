@@ -3,9 +3,6 @@ class Track < ActiveRecord::Base
   
   #rails流initializeらしい
   after_initialize :init
-  def init
-    self.attribute_names.grep(/display_(.*)_/){Track.define_display_method $1}
-  end
 
   def self.define_display_method(method_name)
     define_method "display_#{method_name}" do |locale|
@@ -19,6 +16,11 @@ class Track < ActiveRecord::Base
         self.send("display_#{method_name}_com") # default
       end 
     end
+  end
+
+private
+  def init
+    self.attribute_names.grep(/display_(.*)_/){Track.define_display_method $1}
   end
 
 end
