@@ -20,7 +20,6 @@ class Track < ActiveRecord::Base
 
 private
   def init
-    puts self.class
     self.attribute_names.grep(/display_(.*)_/){Track.define_display_method $1}
   end
 
